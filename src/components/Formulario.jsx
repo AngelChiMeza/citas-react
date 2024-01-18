@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import Error from './Error';
+import { useState, useEffect } from 'react';
+import Error from './Error'
 
 const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
     const [nombre, setNombre] = useState('');
@@ -28,6 +28,7 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Validación del Formulario
         if( [ nombre, propietario, email, fecha, sintomas ].includes('') ) {
             console.log('Hay Al Menos un campo vacio')
@@ -35,8 +36,10 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
             setError(true)
             return;
         } 
-        setError(false)
         
+        setError(false)
+
+
         // Objeto de Paciente
         const objetoPaciente = {
             nombre, 
@@ -59,28 +62,31 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
             objetoPaciente.id = generarId();
             setPacientes([...pacientes, objetoPaciente]);
         }
-        
-         // Reiniciar el form
-         setNombre('')
-         setPropietario('')
-         setEmail('')
-         setFecha('')
-         setSintomas('')
+
+        // Reiniciar el form
+        setNombre('')
+        setPropietario('')
+        setEmail('')
+        setFecha('')
+        setSintomas('')
+
     }
 
-  return (
-    <div className="md:w-1/2 lg:w-2/5 mx-5">
-        <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
-        <p className="text-lg mt-5 text-center mb-10">
+    return (
+        <div className="md:w-1/2 lg:w-2/5 mx-5">
+            <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
+
+            <p className="text-lg mt-5 text-center mb-10">
                 Añade Pacientes y {''}
                 <span className="text-indigo-600 font-bold ">Administralos</span>
-        </p>
-        <form 
+            </p>
+
+            <form 
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
             >
                 { error &&  <Error><p>Todos los campos son obligatorios</p></Error>}
-              <div className="mb-5">
+                <div className="mb-5">
                     <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
                         Nombre Mascota
                     </label>
@@ -92,9 +98,9 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
                         value={nombre}
                         onChange={ (e) => setNombre(e.target.value) }
                     />  
-              </div>
+                </div>
 
-              <div className="mb-5">
+                <div className="mb-5">
                     <label htmlFor="propietario" className="block text-gray-700 uppercase font-bold">
                         Nombre Propietario
                     </label>
@@ -147,14 +153,14 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
                         onChange={ (e) => setSintomas(e.target.value) }
                     />
                 </div>
+
                 <input
                     type="submit"
                     className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
                     value={ paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }
                 />
-
             </form>
-    </div>
+        </div>
     )
 }
 
